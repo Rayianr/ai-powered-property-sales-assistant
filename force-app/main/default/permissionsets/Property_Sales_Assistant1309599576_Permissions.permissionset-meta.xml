@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Allows custom permissions for Agentforce Agent : Property_Sales_Assistant&apos;s agent user : property_sales_assistant@00dhg000004dnh01966096669.ext.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Property_Sales_Assistant1309599576 Permissions</label>
+    <license>Einstein Agent</license>
+</PermissionSet>

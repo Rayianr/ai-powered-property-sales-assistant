@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title={propertyName} icon-name="custom:custom85">
+        <template if:true={property}>
+            <div class="slds-var-p-around_medium">
+                <template if:true={imageUrl}>
+                    <img src={imageUrl} alt="Property Image" class="property-image slds-var-m-bottom_small"/>
+                </template>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <p><strong>Price:</strong> {price}</p>
+                        <p><strong>City:</strong> {city}</p>
+                        <p><strong>Type:</strong> {propertyType}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <p><strong>Bedrooms:</strong> {bedrooms}</p>
+                        <p><strong>Bathrooms:</strong> {bathrooms}</p>
+                        <p><strong>Status:</strong> {status}</p>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template if:true={error}>
+            <div class="slds-text-color_error slds-var-p-around_medium">
+                Error loading property details.
+            </div>
+        </template>
+    </lightning-card>
+</template>

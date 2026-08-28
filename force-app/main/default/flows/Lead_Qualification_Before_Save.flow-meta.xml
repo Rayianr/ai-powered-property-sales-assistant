@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <environments>Default</environments>
+    <formulas>
+        <name>calcScore</name>
+        <dataType>Number</dataType>
+        <expression>(IF(NOT(ISBLANK({!$Record.Email})) || NOT(ISBLANK({!$Record.Phone})), 20, 0)) +
+(IF(NOT(ISBLANK({!$Record.Maximum_Budget__c})), 20, 0)) +
+(IF(NOT(ISBLANK({!$Record.Preferred_City__c})), 15, 0)) +
+(IF(NOT(ISBLANK(TEXT({!$Record.Preferred_Property__c}))), 15, 0)) +
+(IF(NOT(ISBLANK({!$Record.Bedrooms_Required__c})), 10, 0)) +
+(IF(NOT(ISBLANK(TEXT({!$Record.Purchase_Timeline__c}))), 20, 0))</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>calcStatus</name>
+        <dataType>String</dataType>
+        <expression>IF({!calcScore} &gt;= 70, &quot;Qualified&quot;,
+IF({!calcScore} &gt;= 50, &quot;Warm&quot;, &quot;Nurture&quot;))</expression>
+    </formulas>
+    <interviewLabel>Lead Qualification Before Save {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Lead Qualification Before Save</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>updt</name>
+        <label>updt</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Qualification_Score__c</field>
+            <value>
+                <elementReference>calcScore</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Qualification_Status__c</field>
+            <value>
+                <elementReference>calcStatus</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>updt</targetReference>
+        </connector>
+        <object>Lead</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
