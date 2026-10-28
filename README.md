@@ -4,7 +4,7 @@ This capstone project involves the design, development, and deployment of an AI-
 
 **Status:** planning
 **Domain:** Real Estate
-**Progress:** 0%
+**Progress:** 85%
 
 ---
 *Synced from Zaby LMS Capstone Workspace*
